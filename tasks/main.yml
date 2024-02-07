@@ -1,0 +1,16 @@
+---
+- name: install packages requested by client
+  package:
+    name: "{{ package }}"
+    state: present
+  loop: "{{ system_packages }}"
+  loop_control:
+    loop_var: package
+
+- name: install required pip packages
+  pip:
+    name: "{{ package }}"
+    state: present
+  loop: "{{ python_packages }}"
+  loop_control:
+    loop_var: package
