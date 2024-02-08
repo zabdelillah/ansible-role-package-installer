@@ -1,4 +1,7 @@
 ---
+- include_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+
 - name: install packages requested by client
   package:
     name: "{{ package }}"

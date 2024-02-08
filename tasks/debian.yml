@@ -1,0 +1,12 @@
+---
+- name: add universe to repositories
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list
+    line: "deb {{ item }}"
+    create: yes
+  loop: "{{ apt_repositories }}"
+  when: "apt_repositories is defined"
+
+- name: update apt repositories
+  ansible.builtin.apt:
+    update_cache: yes
