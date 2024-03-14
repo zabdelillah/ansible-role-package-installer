@@ -1,4 +1,7 @@
 ---
+# zabdelillah.packages/main.yml
+# Handles package management based on the distribution base, including pip
+#   packages
 - include_tasks: debian.yml
   when: ansible_os_family == 'Debian'
 
@@ -17,3 +20,9 @@
   loop: "{{ python_packages }}"
   loop_control:
     loop_var: package
+  environment:
+    # On some Linux distributions (e.g: archlinux & ubuntu), it's relatively painful
+    #   to use pip on the system level as they re-package (and pre-compile) python
+    #   packages into their own package management systems. This flag allows the pip
+    #   command to bypass the block that is put in place by the distributed pip command
+    - PIP_BREAK_SYSTEM_PACKAGES: 1
