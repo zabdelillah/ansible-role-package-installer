@@ -14,18 +14,25 @@ Role Variables
 --------------
 
 `system_packages (list[str])`: packages to install to the system
+
 `pip_packages (list[str])`: packages to install into the system python path
 
 
 `apt_repositories (list[str])`: adds repositories for apt (Debian) to find
+
 `custom_repositories (dict)`: -
+
 `custom_repositories[*].from_deb (str)`: installs a repository from the given debian file
 
 
 `package_configuration (dict)`: provides automatic configuration of packages
+
 `package_configuration[*].package (str)`: package to configure
+
 `package_configuration[*].question (str)`: question key
+
 `package_configuration[*].value (str)`: answer
+
 `package_configuration[*].value_type (str)`: format of the answer
 
 Dependencies
