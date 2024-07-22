@@ -20,3 +20,12 @@
 - name: update apt repositories
   ansible.builtin.apt:
     update_cache: yes
+
+- name: pre-configure debian packages
+  ansible.builtin.debconf:
+    name: "{{ item.package }}"
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.value_type }}"
+  loop: "{{ package_configuration }}"
+  when: "package_configuration is defined"

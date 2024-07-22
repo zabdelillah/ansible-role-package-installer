@@ -1,31 +1,52 @@
-Role Name
+package-installer
 =========
 
-A brief description of the role goes here.
+Automates package installs across distributions further than the standard package
+task, adding repositories to the system and pre-configuring installations where
+needed from variables.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+None
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+`system_packages (list[str])`: packages to install to the system
+`pip_packages (list[str])`: packages to install into the system python path
+
+`apt_repositories (list[str])`: adds repositories for apt (Debian) to find
+`custom_repositories (dict)`: -
+`custom_repositories[*].from_deb (str)`: installs a repository from the given debian file
+
+`package_configuration (dict)`: provides automatic configuration of packages
+`package_configuration[*].package (str)`: package to configure
+`package_configuration[*].question (str)`: question key
+`package_configuration[*].value (str)`: answer
+`package_configuration[*].value_type (str)`: format of the answer
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+-
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```
+- hosts: all
+  roles:
+    - version: main
+      name: zabdelillah.ansible-role-package-installer
+      vars:
+        system_packages:
+          - python3
+        apt_repositories:
+          - https://packages.ubuntu.com/ noble
+        python_packages:
+          - boto3
+```
 
 License
 -------
